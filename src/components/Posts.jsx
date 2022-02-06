@@ -1,11 +1,24 @@
+import React from "react";
 import { Link } from "react-router-dom";
 const Posts = ({ posts }) => {
+  const cleanString = (str) => {
+    return str
+      .replace(/[^A-Za-z|0-9|\s|/]/g, "")
+      .replace(/\s/g, "-")
+      .toLowerCase();
+  };
+
   return (
-    <div className="post-component">
+    <>
       {posts.map((post) => {
         return (
           <div className="post" key={post.id}>
-            <Link to={`/post/${post.title}/${post.id}`}>{post.title}</Link>
+            <Link
+              className="post-link"
+              to={`/post/${cleanString(post.title)}/${post.id}`}
+            >
+              {post.title}
+            </Link>
             <br />
             <span className="description">
               {post.content.substring(0, 100)}...
@@ -13,7 +26,7 @@ const Posts = ({ posts }) => {
           </div>
         );
       })}
-    </div>
+    </>
   );
 };
 
